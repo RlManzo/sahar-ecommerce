@@ -1,0 +1,70 @@
+.insta-section {
+  width: 100%;
+  padding: 40px 12px 50px;
+  text-align: center;
+
+  @media (min-width: 768px) {
+    padding-inline: 40px;
+  }
+}
+
+.insta-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.insta-username {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--celeste);
+  text-decoration: none;
+}
+
+.insta-username:hover {
+  text-decoration: underline;
+}
+
+/* Contenedor responsive del widget */
+.insta-widget-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Contenedor del iframe */
+.insta-widget-ratio {
+  width: 100%;
+  border-radius: 18px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  overflow: hidden; /* por si LightWidget agrega algo raro */
+}
+
+/* Iframe ocupando todo el ancho */
+.insta-iframe {
+  display: block;
+  width: 100%;
+  border: 0;
+}
+
+/* 🔧 Fuerza la altura para que entren las 3 filas de posts */
+.lightwidget-widget {
+  width: 100% !important;
+  height: 720px !important;   /* ajustá este valor si querés más o menos alto */
+  border: 0 !important;
+}
+
+/* Un poco más bajo en pantallas pequeñas */
+@media (max-width: 992px) {
+  .lightwidget-widget {
+    height: 580px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .lightwidget-widget {
+    height: 480px !important;
+  }
+}

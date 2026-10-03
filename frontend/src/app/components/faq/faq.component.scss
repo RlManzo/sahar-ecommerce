@@ -1,0 +1,127 @@
+.faq {
+  padding: 60px 16px;
+  background: #f7f9fa;
+
+  h4 {
+    font-weight: 800;
+  }
+
+  p {
+    opacity: 0.85;
+    max-width: 860px;
+  }
+}
+
+.faqBox {
+  max-width: 1300px;
+  width: 100%;
+  padding: 0 10px;
+}
+
+.faqItem {
+  background: #fff;
+  border: 1px solid var(--celeste);
+  border-radius: 18px;
+  margin-bottom: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
+}
+
+/* Pregunta */
+.faqQ {
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 16px 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  cursor: pointer;
+  text-align: left;
+}
+
+.qText {
+  font-weight: 800;
+  font-size: 16px;
+  color: #1f2937;
+}
+
+/* iconito + / rotación */
+.chev {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid #cfd9de;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  font-size: 20px;
+  color: #ea5534;
+  transition: transform 180ms ease, background 180ms ease;
+}
+
+.chev.open {
+  transform: rotate(45deg);
+  background: rgba(234, 85, 52, 0.08);
+}
+
+/* Respuesta desplegable */
+.faqA {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 260ms ease;
+  border-top: 1px solid rgba(207, 217, 222, 0.7);
+}
+
+.faqA.open {
+  max-height: 220px; /* suficiente para 2-4 líneas */
+}
+
+.faqAInner {
+  padding: 14px 18px 18px;
+  color: #374151;
+  font-size: 14px;
+  line-height: 1.45;
+  opacity: 0.92;
+}
+
+
+/* Quitar underline inferior de este título */
+.faq .section-title {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.faq .section-title::after {
+  content: none;
+}
+
+/* Contenedor del título con líneas punteadas a los lados */
+.faq .text-center {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 1.5rem; // separa título del texto intro
+}
+
+/* Líneas punteadas laterales */
+.faq .text-center::before,
+.faq .text-center::after {
+  content: '';
+  flex: 1;
+  border-bottom: 2px dotted var(--ladrillo);
+  opacity: 0.6;
+  margin: 0 24px; // achica un poquito para que no vaya de borde a borde
+}
+
+@media (max-width: 767.98px) {
+  .faq .section-title {
+    white-space: nowrap;
+    font-size: 26px;
+    line-height: 1.1;
+  }
+}

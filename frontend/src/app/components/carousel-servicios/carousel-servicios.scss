@@ -1,0 +1,155 @@
+.carousel-wrap {
+  position: relative;
+  top: 90px;
+}
+
+.carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Slides: fade */
+.carousel-image {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 350ms ease;
+  pointer-events: none;
+
+  &.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    user-select: none;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+/* Altura desktop */
+.carousel::before {
+  content: "";
+  display: block;
+  padding-top: 38%;
+}
+
+/* Flechas */
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.nav-arrow.left {
+  left: 0;
+}
+
+.nav-arrow.right {
+  right: 0;
+}
+
+.nav-arrow:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* Dots */
+.dots {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 6;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: 0;
+  background: rgba(255, 255, 255, 0.55);
+  cursor: pointer;
+}
+
+.dot.active {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+  /* eliminar offset del navbar */
+  .carousel-wrap {
+    top: 0 !important;
+  }
+
+  /* carrusel más alto tipo Teorema */
+  .carousel::before {
+  padding-top: 175% !important;
+}
+  /* ocultar flechas */
+  .nav-arrow {
+    display: none;
+  }
+
+  /* dots más visibles */
+  .dots {
+    bottom: 14px;
+    gap: 7px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    background: rgba(255,255,255,0.6);
+  }
+
+  .dot.active {
+    background: #000;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .carousel-wrap {
+    top: 0 !important;
+
+    /* rompe el container de bootstrap */
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+  }
+
+  .carousel {
+    width: 100%;
+  }
+
+  .carousel-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+}

@@ -1,0 +1,75 @@
+package com.ecommerce_base.app.api.admin.products;
+
+import com.ecommerce_base.app.api.products.dto.*;
+import com.ecommerce_base.app.service.AdminOrderShippingService;
+import com.ecommerce_base.app.service.AdminProductService;
+import com.ecommerce_base.app.service.ProductService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/admin/products")
+public class ProductAdminController {
+
+    private final ProductService productService;
+    private final AdminProductService adminProductService;
+
+    public ProductAdminController(
+            ProductService productService,
+            AdminProductService adminProductService,
+            AdminOrderShippingService adminOrderShippingService
+    ) {
+        this.productService = productService;
+        this.adminProductService = adminProductService;
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ProductResponse create(@Valid @RequestBody CreateProductRequest req) {
+        var ids = adminProductService.bulkCreate(List.of(req));
+        Long id = ids.get(0);
+
+        var p = productService.getById(id);
+        return ProductResponse.of(p, productService.getStock(id));
+    }
+
+    @PostMapping("/bulk")
+    public BulkProductCreateResponse bulkCreate(@Valid @RequestBody BulkProductCreateRequest req) {
+        var ids = adminProductService.bulkCreate(req.items);
+        return BulkProductCreateResponse.of(ids);
+    }
+
+    @PutMapping("/{id}")
+    public ProductResponse update(@PathVariable Long id, @Valid @RequestBody CreateProductRequest req) {
+        var p = adminProductService.update(id, req);
+        return ProductResponse.of(p, productService.getStock(id));
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        adminProductService.delete(id);
+    }
+
+    @PatchMapping("/{id}/estado")
+    public void updateEstado(@PathVariable Long id,
+                             @RequestBody @Valid UpdateProductEstadoRequest req) {
+        adminProductService.setEstado(id, req.estado);
+    }
+
+    @GetMapping("/by-barcode")
+    public ProductResponse getByBarcode(@RequestParam String code) {
+        var p = adminProductService.getByBarcode(code);
+        return ProductResponse.of(p, productService.getStock(p.getId()));
+    }
+
+    @GetMapping("/search")
+    public List<ProductResponse> search(@RequestParam String q) {
+        return adminProductService.search(q).stream()
+                .map(p -> ProductResponse.of(p, productService.getStock(p.getId())))
+                .toList();
+    }
+}

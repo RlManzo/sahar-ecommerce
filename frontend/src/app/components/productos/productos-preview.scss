@@ -1,0 +1,380 @@
+/* =========================================
+   HOME – PRODUCTOS DESTACADOS (preview)
+========================================= */
+
+.home-featured {
+  width: 100%;
+  padding: 30px 12px 40px;
+  position: relative;
+  top: 90px;
+  overflow-x: hidden; /* evita desborde visual del bloque */
+}
+
+.home-featured-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+  width: 100%;
+}
+
+.home-featured-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #12233d;
+  margin: 0;
+}
+
+.home-featured-link {
+  border: 0;
+  background: transparent;
+  color: var(--celeste);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+/* Línea punteada a la derecha de "Ver más" */
+.home-featured-header::after {
+  content: '';
+  flex: 1;
+  border-bottom: 2px dotted var(--ladrillo);
+  opacity: 0.6;
+  margin-left: 12px;
+}
+
+/* =========================
+   CARRUSEL
+========================= */
+
+.home-featured-carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0; /* importante para evitar overflow raro */
+}
+
+/* Track que scrolla horizontalmente */
+.home-featured-track {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  scroll-behavior: smooth;
+  padding-bottom: 8px;
+  padding-right: 6px; /* deja ver “media card” sin romper layout */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Scrollbar suave */
+.home-featured-track::-webkit-scrollbar {
+  height: 6px;
+}
+.home-featured-track::-webkit-scrollbar-track {
+  background: transparent;
+}
+.home-featured-track::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 999px;
+}
+
+/* Flechas izquierda / derecha */
+.home-arrow {
+  border: 0;
+  background: #ffffff;
+  border-radius: 999px;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+  color: #12233d;
+  flex: 0 0 auto;
+}
+
+.home-arrow:hover {
+  background: #f3f4f6;
+}
+
+.home-arrow:disabled {
+  opacity: 0.4;
+  cursor: default;
+  box-shadow: none;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.home-product-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 10px 10px 14px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex: 0 0 160px;
+  scroll-snap-align: start;
+  min-width: 0;
+}
+
+.home-product-media {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.home-product-img {
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+  display: block;
+  background: #fff;
+}
+
+.home-product-img--placeholder {
+  display: grid;
+  place-items: center;
+  background: #f3f4f6;
+  color: #9ca3af;
+  font-size: 20px;
+  height: 150px;
+}
+
+.home-product-body {
+  display: grid;
+  gap: 4px;
+  align-items: flex-start;
+}
+
+.home-product-name {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  min-height: 40px;
+  color: #12233d;
+}
+
+.home-product-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.home-product-price {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ladrillo);
+}
+
+.home-product-add {
+  border: 0;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--celeste);
+  color: #fff;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.home-product-add:hover {
+  filter: brightness(1.05);
+}
+
+/* Título actual */
+.home-featured .section-title {
+  padding-bottom: 0;
+  border-bottom: none;
+  margin: 0;
+}
+
+.home-featured .section-title::after {
+  content: none;
+}
+
+.h4 {
+  font-size: 35px;
+  font-family: "Calistoga", cursive;
+  font-weight: 400;
+  line-height: 106.3%;
+  color: var(--azul);
+  margin: 0 15px 0 0;
+}
+
+/* =========================
+   DESKTOP / TABLET
+========================= */
+
+@media (min-width: 768px) {
+  .home-featured {
+    padding-inline: 40px;
+  }
+
+  .home-featured-title {
+    font-size: 24px;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+  .home-featured {
+    top: 0 !important;
+    padding: 24px 0 30px; /* sin padding lateral para que el track mande */
+    overflow-x: hidden;
+  }
+
+  .home-featured-header {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+    margin-bottom: 14px;
+    padding: 0 20px;
+  }
+
+  .home-featured-header::after {
+    display: none;
+  }
+
+  .home-featured .section-title {
+    font-size: 28px;
+     line-height: 1.1;
+      white-space: nowrap;
+      max-width: none;
+      text-align: left !important;
+  }
+
+  /* "Ver más" abajo del título */
+  .home-featured-link {
+    order: 2;
+    justify-self: left;
+    font-size: 14px;
+    line-height: 1.1;
+    text-align: right;
+  }
+
+  .home-featured-carousel {
+    gap: 0;
+  }
+
+  /* ocultamos flechas en mobile */
+  .home-arrow {
+    display: none;
+  }
+
+  /* track full ancho sin desbordar el layout */
+  .home-featured-track {
+  gap: 14px;
+  padding-left: 18px;
+  padding-right: 0;
+  padding-bottom: 6px;
+  scroll-padding-left: 18px;
+  scroll-padding-right: 0;
+}
+
+/* 2 cards grandes + asoma la tercera */
+.home-product-card {
+  flex: 0 0 calc((100% - 18px - 14px) / 2.2);
+  border-radius: 16px;
+  padding: 10px 10px 14px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+  .home-product-media {
+    border-radius: 12px;
+    margin-bottom: 6px;
+  }
+
+  .home-product-img,
+.home-product-img--placeholder {
+  height: 125px;
+}
+
+  .home-product-name {
+  font-size: 13px;
+  line-height: 1.25;
+  min-height: 48px;
+}
+
+  .home-product-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .home-product-price {
+  font-size: 14px;
+}
+
+.home-product-add {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 11px;
+}
+}
+
+@media (max-width: 768px) {
+
+  .home-featured {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+}
+
+.product-subtitle{
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1.3;
+  color: rgba(17,24,39,.85);
+  margin: 0;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 36px;
+}
+
+.home-product-add.is-disabled,
+.home-product-add:disabled {
+  background-color: transparent;
+  color: #999;
+  border: 2px solid #ccc;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* opcional: hover desactivado */
+.home-product-add.is-disabled:hover,
+.home-product-add:disabled:hover {
+  background-color: transparent;
+  color: #999;
+}
+/* ===== SAHAR THEME ===== */
+.home-featured{background:#080808!important;padding:78px 28px!important;max-width:1480px!important;margin:0 auto!important;color:#f4efe5!important}.home-featured-header{border:0!important;margin-bottom:26px!important}.home-featured-header::after{border-color:#342b15!important}.home-featured .section-title{font-family:Georgia,'Times New Roman',serif!important;font-size:42px!important;font-weight:400!important;color:#f4efe5!important}.home-featured-link{background:transparent!important;border:0!important;color:#d3a323!important;font-weight:700!important;letter-spacing:.08em!important;text-transform:uppercase!important}.home-featured-track{gap:14px!important}.home-product-card{background:#111!important;border:1px solid #2c2c2c!important;border-radius:4px!important;box-shadow:none!important;color:#eee!important;padding:10px 10px 14px!important;transition:.2s!important}.home-product-card:hover{border-color:#74601f!important;transform:translateY(-3px)!important}.home-product-media{background:#fff!important;border-radius:2px!important}.home-product-img{object-fit:contain!important}.home-product-name{color:#f5efe5!important;font-size:14px!important;font-weight:650!important}.product-subtitle{color:#89847c!important}.home-product-price{color:#d3a323!important;font-weight:800!important}.home-product-add{background:#d3a323!important;border:1px solid #d3a323!important;color:#080808!important;border-radius:2px!important;font-weight:800!important}.home-product-add:hover:not(:disabled){background:#e2b63a!important}.home-arrow{background:#111!important;border:1px solid #333!important;color:#d3a323!important;box-shadow:none!important}.home-arrow:hover:not(:disabled){border-color:#d3a323!important}.home-product-add.is-disabled,.home-product-add:disabled{background:#151515!important;border-color:#333!important;color:#777!important}
+@media(max-width:768px){.home-featured{padding:50px 0!important}.home-featured-header{padding:0 16px!important}.home-featured .section-title{font-size:32px!important}.home-product-card{border-radius:3px!important}}

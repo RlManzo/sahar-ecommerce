@@ -1,0 +1,129 @@
+<ng-container *ngIf="producto();">
+  <div class="lks-detail">
+    <!-- izquierda -->
+    <div class="lks-left">
+      <div class="lks-main-wrap">
+        <!-- ✅ grande: imagen o video -->
+        <ng-container *ngIf="!isVideo(bigImg()); else bigVideo">
+          <img class="lks-main-img" [src]="bigImg()" [alt]="producto()!.nombre" />
+        </ng-container>
+        <ng-template #bigVideo>
+          <video
+            class="lks-main-img"
+            [src]="bigImg()"
+            controls
+            muted
+            playsinline
+          ></video>
+        </ng-template>
+
+        <!-- flechas -->
+        <button
+          *ngIf="imagenes().length > 1"
+          type="button"
+          class="lks-nav left"
+          (click)="prevImg()"
+          aria-label="Anterior"
+        >
+          ‹
+        </button>
+
+        <button
+          *ngIf="imagenes().length > 1"
+          type="button"
+          class="lks-nav right"
+          (click)="nextImg()"
+          aria-label="Siguiente"
+        >
+          ›
+        </button>
+      </div>
+
+      <!-- thumbs -->
+      <div class="lks-thumbs" *ngIf="imagenes().length > 1">
+        <button
+          class="lks-thumb"
+          type="button"
+          *ngFor="let url of imagenes()"
+          (click)="selectImg(url)"
+          [class.active]="bigImg() === url"
+        >
+          <ng-container *ngIf="!isVideo(url); else tVideo">
+            <img [src]="url" [alt]="producto()!.nombre" />
+          </ng-container>
+          <ng-template #tVideo>
+            <video [src]="url" muted playsinline></video>
+          </ng-template>
+        </button>
+      </div>
+    </div>
+
+    <!-- derecha -->
+    <div class="lks-right">
+      <h2 class="lks-title">{{ producto()!.nombre }}</h2>
+      <div class="lks-underline"></div>
+
+      <ul
+        class="lks-bullets"
+        *ngIf="splitInfo(producto()!.infoModal).length; else sinBullets"
+      >
+        <li *ngFor="let it of splitInfo(producto()!.infoModal)">{{ it }}</li>
+      </ul>
+
+      <ng-template #sinBullets>
+        <p class="lks-desc">{{ producto()!.infoModal }}</p>
+      </ng-template>
+
+      <div class="lks-row">
+        <div class="lks-label">Categoría:</div>
+        <div class="lks-value">
+          {{
+            producto()!.categorias?.length
+              ? producto()!.categorias!.join(', ')
+              : '-'
+          }}
+        </div>
+      </div>
+
+      <div class="lks-chips" *ngIf="producto()!.keywords?.length">
+        <span class="lks-chip" *ngFor="let k of producto()!.keywords">
+          {{ k }}
+        </span>
+      </div>
+
+      <div class="lks-row">
+        <div class="lks-label">Precio:</div>
+        <div class="lks-value">
+          {{ (producto()!.precio ?? 0) | currency:'ARS':'symbol':'1.0-0' }}
+        </div>
+      </div>
+
+      <div class="lks-row">
+        <div class="lks-label">Stock:</div>
+        <div class="lks-value">{{ producto()!.stock ?? 0 }}</div>
+      </div>
+
+      <div class="lks-actions">
+        <button
+            class="lks-btn primary"
+            type="button"
+            [disabled]="!hasStock()"
+            [ngClass]="{ 'outline': !hasStock() }"
+            (click)="onAgregar()"
+          >
+            {{ hasStock() ? 'AGREGAR' : 'SIN STOCK' }}
+          </button>
+
+        <button
+          class="lks-btn secondary lks-modal-close"
+          data-bs-dismiss="modal"
+          type="button"
+        >
+          CANCELAR
+        </button>
+      </div>
+    </div>
+
+  </div>
+</ng-container>
+

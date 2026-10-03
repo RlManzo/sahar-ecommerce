@@ -1,0 +1,532 @@
+<nav class="sahar-nav">
+
+  <div
+    class="sahar-ticker"
+    *ngIf="!isOnlyOperador()"
+  >
+    <span>✦ Perfumería & decants</span>
+    <span>Envíos a todo el país</span>
+    <span>Stock actualizado</span>
+    <span>Precios en pesos argentinos</span>
+  </div>
+
+  <div class="sahar-mainbar">
+
+    <a
+      class="sahar-brand"
+      routerLink="/"
+      (click)="closeAllMenus()"
+      aria-label="Sahar inicio"
+    >
+      <strong>SAHAR</strong>
+      <span>PERFUMERÍA & DECANTS</span>
+    </a>
+
+    <div
+      class="sahar-search"
+      *ngIf="!isOnlyOperador()"
+    >
+      <app-header></app-header>
+    </div>
+
+    <div class="sahar-actions">
+
+      <a
+        class="icon-action"
+        *ngIf="!isLogged()"
+        routerLink="/login"
+        aria-label="Ingresar"
+      >
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z"
+          />
+        </svg>
+      </a>
+
+      <div
+        class="user-menu"
+        *ngIf="isLogged()"
+        (click)="$event.stopPropagation()"
+      >
+        <button
+          class="icon-action"
+          type="button"
+          aria-label="Cuenta"
+          (click)="toggleUserMenu($event)"
+        >
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z"
+            />
+          </svg>
+        </button>
+
+        <div
+          class="user-dropdown"
+          *ngIf="userMenuOpen()"
+        >
+          <div class="user-email">
+            {{ email() }}
+          </div>
+
+          <button
+            *ngIf="!isAdmin() && !isOperador()"
+            type="button"
+            (click)="goProfile()"
+          >
+            Mi perfil
+          </button>
+
+          <button
+            *ngIf="!isAdmin() && !isOperador()"
+            type="button"
+            (click)="goOrders()"
+          >
+            Mis pedidos
+          </button>
+
+          <button
+            *ngIf="isAdmin()"
+            type="button"
+            (click)="goAdminHome()"
+          >
+            Administración
+          </button>
+
+          <button
+            class="danger"
+            type="button"
+            (click)="logout()"
+          >
+            Salir
+          </button>
+        </div>
+      </div>
+
+      <button
+        class="icon-action cart-action"
+        *ngIf="!isAdminOrOperador()"
+        type="button"
+        (click)="openCart()"
+        aria-label="Carrito"
+      >
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M7 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4M6.2 6l.7 4h10.8l1.2-4H6.2zm-.4-2H21l-2.4 8H7.2l.4 2H19v2H6L3.8 4H1V2h4.4l.4 2z"
+          />
+        </svg>
+
+        <span>
+          {{ store.cartCount() }}
+        </span>
+      </button>
+
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-label="Menú"
+        [attr.aria-expanded]="menuOpen()"
+        (click)="toggleMenu($event)"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+    </div>
+  </div>
+
+  <div
+    class="sahar-categories"
+    *ngIf="!isOnlyOperador()"
+  >
+
+    <!-- CATEGORÍAS -->
+    <div
+      class="mega-wrapper"
+      (mouseenter)="openProductsMenu()"
+      (mouseleave)="closeProductsMenu()"
+      (click)="$event.stopPropagation()"
+    >
+      <button
+        type="button"
+        class="category-menu"
+        [class.active]="productsOpen()"
+        (click)="toggleProductsMenu($event)"
+      >
+        <span class="hamburger">☰</span>
+
+        Categorías
+
+        <span
+          class="nav-chevron"
+          [class.open]="productsOpen()"
+        >
+          ⌄
+        </span>
+      </button>
+
+      <div
+        class="mega-menu"
+        *ngIf="productsOpen()"
+      >
+        <div class="mega-menu-header">
+
+          <h3>
+            Explorar categorías
+          </h3>
+
+          <button
+            type="button"
+            class="mega-view-all-top"
+            (click)="resetProductsFilters()"
+          >
+            Ver todo →
+          </button>
+
+        </div>
+
+        <div class="mega-menu-grid">
+
+          <div
+            class="mega-column"
+            *ngFor="let column of megaMenuColumns"
+          >
+            <button
+              type="button"
+              class="mega-column-title"
+              (click)="goProducts(column.category)"
+            >
+              <span class="mega-icon">
+                ◇
+              </span>
+
+              <span>
+                {{ column.title }}
+              </span>
+            </button>
+
+            <div class="mega-column-links">
+
+              <button
+                *ngFor="let item of column.items"
+                type="button"
+                (click)="goProducts(item.category)"
+              >
+                {{ item.label }}
+              </button>
+
+            </div>
+
+            <button
+              *ngIf="column.viewAllLabel"
+              type="button"
+              class="mega-view-all"
+              (click)="goProducts(column.category)"
+            >
+              {{ column.viewAllLabel }}
+            </button>
+
+          </div>
+        </div>
+
+        <div class="mega-menu-footer">
+
+          <button
+            type="button"
+            class="quick-chip"
+            (click)="goProducts('perfumes')"
+          >
+            🔥 Ofertas
+          </button>
+
+          <button
+            type="button"
+            class="quick-chip"
+            (click)="resetProductsFilters()"
+          >
+            ✦ Nuevos
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+    <button
+      type="button"
+      (click)="resetProductsFilters()"
+    >
+      Todos los productos
+    </button>
+
+    <button
+      type="button"
+      class="gold"
+      (click)="goProducts('perfumes')"
+    >
+      🔥 Ofertas
+    </button>
+
+    <!-- PERFUMES -->
+    <div
+      class="dropdown-wrapper"
+      (mouseenter)="openDropdown('perfumes')"
+      (mouseleave)="scheduleDropdownClose()"
+      (click)="$event.stopPropagation()"
+    >
+      <button
+        type="button"
+        class="dropdown-trigger"
+        [class.active]="activeDropdown() === 'perfumes'"
+        (click)="goProducts('perfumes')"
+      >
+        Perfumes
+
+        <span
+          class="dropdown-arrow"
+          [class.open]="activeDropdown() === 'perfumes'"
+        >
+          ⌄
+        </span>
+      </button>
+
+      <div
+        class="dropdown-menu"
+        *ngIf="activeDropdown() === 'perfumes'"
+        (mouseenter)="cancelDropdownClose()"
+        (mouseleave)="scheduleDropdownClose()"
+      >
+        <button
+          *ngFor="let item of perfumesMenu"
+          type="button"
+          (click)="goProducts(item.category)"
+        >
+          {{ item.label }}
+        </button>
+
+        <div class="dropdown-separator"></div>
+
+        <div class="dropdown-label">
+          Marcas
+        </div>
+
+        <button
+          *ngFor="let brand of libraryBrands"
+          type="button"
+          (click)="goProductsByBrand(brand)"
+        >
+          {{ brand }}
+        </button>
+      </div>
+    </div>
+
+    <!-- INSUMOS -->
+    <div
+      class="dropdown-wrapper"
+      (mouseenter)="openDropdown('insumos')"
+      (mouseleave)="scheduleDropdownClose()"
+      (click)="$event.stopPropagation()"
+    >
+      <button
+        type="button"
+        class="dropdown-trigger"
+        [class.active]="activeDropdown() === 'insumos'"
+        (click)="goProducts('decants')"
+      >
+        Insumos
+
+        <span
+          class="dropdown-arrow"
+          [class.open]="activeDropdown() === 'insumos'"
+        >
+          ⌄
+        </span>
+      </button>
+
+      <div
+        class="dropdown-menu"
+        *ngIf="activeDropdown() === 'insumos'"
+        (mouseenter)="cancelDropdownClose()"
+        (mouseleave)="scheduleDropdownClose()"
+      >
+        <button
+          *ngFor="let item of insumosMenu"
+          type="button"
+          (click)="goProducts(item.category)"
+        >
+          {{ item.label }}
+        </button>
+      </div>
+    </div>
+
+    <!-- CUIDADO PERSONAL -->
+    <div
+      class="dropdown-wrapper"
+      (mouseenter)="openDropdown('cuidado')"
+      (mouseleave)="scheduleDropdownClose()"
+      (click)="$event.stopPropagation()"
+    >
+      <button
+        type="button"
+        class="dropdown-trigger"
+        [class.active]="activeDropdown() === 'cuidado'"
+        (click)="goProducts('cuidado')"
+      >
+        Cuidado personal
+
+        <span
+          class="dropdown-arrow"
+          [class.open]="activeDropdown() === 'cuidado'"
+        >
+          ⌄
+        </span>
+      </button>
+
+      <div
+        class="dropdown-menu"
+        *ngIf="activeDropdown() === 'cuidado'"
+        (mouseenter)="cancelDropdownClose()"
+        (mouseleave)="scheduleDropdownClose()"
+      >
+        <button
+          *ngFor="let item of cuidadoMenu"
+          type="button"
+          (click)="goProducts(item.category)"
+        >
+          {{ item.label }}
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <div
+    class="admin-strip"
+    *ngIf="isAdminOrOperador()"
+  >
+    <button
+      *ngIf="isAdmin()"
+      type="button"
+      (click)="goAdminHome()"
+    >
+      Panel
+    </button>
+
+    <button
+      *ngIf="isAdmin()"
+      type="button"
+      (click)="goAdminProducts()"
+    >
+      Productos
+    </button>
+
+    <button
+      type="button"
+      (click)="goOrders()"
+    >
+      Pedidos
+    </button>
+
+    <button
+      *ngIf="isAdmin()"
+      type="button"
+      (click)="goAdminCustomers()"
+    >
+      Clientes
+    </button>
+  </div>
+
+  <div
+    class="mobile-drawer"
+    [class.open]="menuOpen()"
+    (click)="$event.stopPropagation()"
+  >
+
+    <div class="drawer-head">
+
+      <div class="sahar-brand mini">
+        <strong>SAHAR</strong>
+        <span>PERFUMERÍA & DECANTS</span>
+      </div>
+
+      <button
+        type="button"
+        (click)="closeMenu()"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <button
+      type="button"
+      (click)="resetProductsFilters()"
+    >
+      Todos los productos
+    </button>
+
+    <button
+      type="button"
+      (click)="goProducts('perfumes')"
+    >
+      Perfumes
+    </button>
+
+    <button
+      type="button"
+      (click)="goProducts('decants')"
+    >
+      Decants & frascos
+    </button>
+
+    <button
+      type="button"
+      (click)="goProducts('cuidado')"
+    >
+      Cuidado personal
+    </button>
+
+    <button
+      type="button"
+      (click)="goProducts('accesorios')"
+    >
+      Accesorios
+    </button>
+
+    <button
+      type="button"
+      (click)="goProducts('embalaje')"
+    >
+      Embalaje
+    </button>
+
+    <hr>
+
+    <a
+      *ngIf="!isLogged()"
+      routerLink="/login"
+      (click)="closeMenu()"
+    >
+      Ingresar
+    </a>
+
+    <button
+      *ngIf="isLogged()"
+      type="button"
+      (click)="goProfile()"
+    >
+      Mi cuenta
+    </button>
+
+  </div>
+
+  <button
+    *ngIf="menuOpen()"
+    class="drawer-backdrop"
+    type="button"
+    (click)="closeMenu()"
+    aria-label="Cerrar menú"
+  ></button>
+
+</nav>

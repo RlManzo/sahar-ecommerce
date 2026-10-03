@@ -1,0 +1,60 @@
+package com.ecommerce_base.app.api.auth;
+
+import com.ecommerce_base.app.api.auth.dto.*;
+import com.ecommerce_base.app.domain.user.UserRepository;
+import com.ecommerce_base.app.service.AuthService;
+import jakarta.validation.Valid;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/auth")
+public class AuthController {
+
+    private final AuthService authService;
+    private final UserRepository userRepository;
+
+    public AuthController(AuthService authService, UserRepository userRepository) {
+        this.authService = authService;
+        this.userRepository = userRepository;
+    }
+
+    @PostMapping("/register")
+    public MessageResponse register(@Valid @RequestBody RegisterRequest req) {
+        authService.register(req);
+        return new MessageResponse("Te enviamos un email para verificar tu cuenta");
+    }
+
+    @PostMapping("/login")
+    public AuthResponse login(@Valid @RequestBody LoginRequest req) {
+        String token = authService.login(req.email, req.password);
+        return new AuthResponse(token);
+    }
+
+    @GetMapping("/me")
+    public MeResponse me(Authentication auth) {
+        String email = auth.getName();
+        var u = userRepository.findByEmail(email).orElseThrow();
+        return new MeResponse(u.getEmail(), u.getRole().name());
+    }
+
+    @PostMapping("/verify-email")
+    public MessageResponse verifyEmail(@RequestParam String token) {
+        authService.verifyEmail(token);
+        return new MessageResponse("Cuenta verificada correctamente");
+    }
+
+    @PostMapping("/forgot-password")
+    public MessageResponse forgotPassword(@Valid @RequestBody ForgotPasswordRequest req) {
+        authService.requestPasswordReset(req);
+        return new MessageResponse(
+                "Si el email existe, te enviamos un enlace para restablecer tu contraseña"
+        );
+    }
+
+    @PostMapping("/reset-password")
+    public MessageResponse resetPassword(@Valid @RequestBody ResetPasswordRequest req) {
+        authService.resetPassword(req);
+        return new MessageResponse("Tu contraseña fue actualizada correctamente");
+    }
+}

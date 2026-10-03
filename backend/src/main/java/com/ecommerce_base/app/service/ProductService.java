@@ -1,0 +1,79 @@
+package com.ecommerce_base.app.service;
+
+import com.ecommerce_base.app.api.products.dto.CreateProductRequest;
+import com.ecommerce_base.app.domain.product.Product;
+import com.ecommerce_base.app.domain.product.ProductRepository;
+import com.ecommerce_base.app.domain.product.Stock;
+import com.ecommerce_base.app.domain.product.StockRepository;
+import com.ecommerce_base.app.exception.BadRequestException;
+import com.ecommerce_base.app.exception.NotFoundException;
+import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+@Service
+public class ProductService {
+
+    private final ProductRepository productRepository;
+    private final StockRepository stockRepository;
+
+    public ProductService(ProductRepository productRepository, StockRepository stockRepository) {
+        this.productRepository = productRepository;
+        this.stockRepository = stockRepository;
+    }
+
+    public List<Product> listAllActive() {
+        return productRepository.findAll().stream().filter(Product::isActivo).toList();
+    }
+
+    public List<Product> listAll() {
+        return productRepository.findAll();
+    }
+
+    public Product getById(Long id) {
+        return productRepository.findById(id).orElseThrow(() -> new NotFoundException("Producto no encontrado"));
+    }
+
+    public int getStock(Long productId) {
+        return stockRepository.findById(productId).map(Stock::getStock).orElse(0);
+    }
+
+    public Product create(CreateProductRequest req) {
+        String barcode = blankToNull(req.barcode);
+
+        if (barcode != null && productRepository.existsByBarcode(barcode)) {
+            throw new BadRequestException("Ya existe un producto con ese código de barras");
+        }
+
+        Product p = new Product();
+        p.setNombre(req.nombre.trim());
+        p.setDescripcionCorta(blankToNull(req.descripcionCorta));
+        p.setInfoModal(blankToNull(req.infoModal));
+        p.setImgUrl(blankToNull(req.imgUrl));
+        p.setImgUrl2(blankToNull(req.imgUrl2));
+        p.setImgUrl3(blankToNull(req.imgUrl3));
+        p.setBarcode(barcode);
+        p.setCategorias(blankToNull(req.categorias));
+        p.setServicios(blankToNull(req.servicios));
+        p.setKeywords(blankToNull(req.keywords));
+        p.setPrecio(req.precio == null ? BigDecimal.ZERO : req.precio);
+        if (req.activo != null) p.setActivo(req.activo);
+        if (req.estado != null) p.setEstado(req.estado);
+
+        p = productRepository.save(p);
+
+        Stock s = new Stock();
+        s.setProduct(p);
+        s.setStock(req.stock == null ? 0 : req.stock);
+        stockRepository.save(s);
+
+        return p;
+    }
+
+    private String blankToNull(String s) {
+        if (s == null) return null;
+        String t = s.trim();
+        return t.isEmpty() ? null : t;
+    }
+}

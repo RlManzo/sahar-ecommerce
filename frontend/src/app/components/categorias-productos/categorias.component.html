@@ -1,0 +1,22 @@
+<section class="home-categories">
+  <div class="section-heading">
+    <span class="eyebrow">EXPLORÁ SAHAR</span>
+    <h2>Comprá por categoría</h2>
+    <p>Perfumería y todo lo que necesitás para armar, presentar y vender tus propios decants.</p>
+  </div>
+
+  <div class="category-grid">
+    <button class="category-card perfume" type="button" (click)="goToProductsRoute('perfumes')">
+      <span class="index">01</span><div><small>FRAGANCIAS</small><h3>Perfumes</h3><p>Árabes, nicho y marcas seleccionadas.</p></div><span class="arrow">↗</span>
+    </button>
+    <button class="category-card decants" type="button" (click)="goToProductsRoute('decants')">
+      <span class="index">02</span><div><small>INSUMOS</small><h3>Decants & frascos</h3><p>Básicos, recargables, metalizados y líneas especiales.</p></div><span class="arrow">↗</span>
+    </button>
+    <button class="category-card care" type="button" (click)="goToProductsRoute('cuidado')">
+      <span class="index">03</span><div><small>BEAUTY</small><h3>Cuidado personal</h3><p>Body splash, capilar y productos complementarios.</p></div><span class="arrow">↗</span>
+    </button>
+    <button class="category-card acc" type="button" (click)="goToProductsRoute('accesorios')">
+      <span class="index">04</span><div><small>PARA TU NEGOCIO</small><h3>Accesorios</h3><p>Packagings, exhibidores, llaveros y extractores.</p></div><span class="arrow">↗</span>
+    </button>
+  </div>
+</section>

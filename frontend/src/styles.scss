@@ -1,0 +1,54 @@
+@use '@angular/material' as mat;
+@import "@fontsource/inter/300.css";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+
+html {
+  height:100%;
+  @include mat.theme((
+    color:(primary:mat.$yellow-palette,tertiary:mat.$orange-palette),
+    typography:Inter,
+    density:0,
+  ));
+}
+
+:root{
+  --sahar-bg:#080808;
+  --sahar-surface:#111111;
+  --sahar-surface-2:#171717;
+  --sahar-border:#2a2a2a;
+  --sahar-gold:#d3a323;
+  --sahar-gold-2:#e3b83f;
+  --sahar-cream:#f4efe5;
+  --sahar-muted:#9a968f;
+  --sahar-success:#46a56f;
+
+  /* aliases viejos para no romper componentes todavía no migrados */
+  --azul:#111111;
+  --celeste:#d3a323;
+  --ladrillo:#d3a323;
+  --amarillo:#d3a323;
+  --blanco:#ffffff;
+  --violeta:#d3a323;
+  --magenta:#d3a323;
+  --crema:#111111;
+  --borde:#2a2a2a;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;min-height:100%;overflow-x:hidden;background:var(--sahar-bg);}
+body{margin:0;color:var(--sahar-cream);font-family:'Inter',sans-serif;color-scheme:dark;background:radial-gradient(circle at 50% -10%,#1b160a 0,#0b0b0b 32%,#080808 62%);}
+a{color:inherit} button,input,select,textarea{font:inherit} img,svg,video,canvas{max-width:100%;height:auto}
+body::-webkit-scrollbar{width:9px}body::-webkit-scrollbar-track{background:#0a0a0a}body::-webkit-scrollbar-thumb{background:#7f6116;border-radius:999px}
+
+/* Bootstrap/legacy modal adaptation */
+.modal-content{background:#111!important;color:#f4efe5!important;border:1px solid #303030!important;border-radius:4px!important;box-shadow:0 30px 100px #000c!important}.modal-body{padding:0!important}.modal-backdrop.show{opacity:.78!important}.btn-close{filter:invert(1);opacity:.8}
+
+.section-title{font-family:Georgia,'Times New Roman',serif!important;color:var(--sahar-cream)!important;font-weight:400!important;letter-spacing:.01em!important}
+.container-fluid{padding-left:0!important;padding-right:0!important}
+
+.sahar-section{max-width:1480px;margin:0 auto;padding:70px 28px}
+.sahar-eyebrow{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--sahar-gold)}
+
+@media(max-width:768px){.sahar-section{padding:44px 16px}}

@@ -1,0 +1,46 @@
+<div class="modal fade" id="staticBackdrop" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content">
+      <button type="button" class="btn-close lks-modal-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      <div class="modal-body"><app-producto-modal></app-producto-modal></div>
+    </div>
+  </div>
+</div>
+
+<main class="sahar-home">
+  <section class="hero">
+    <div class="hero-pattern"></div>
+    <div class="hero-content">
+      <div class="hero-kicker"><span></span> PERFUMERÍA · DECANTS · MAYORISTA</div>
+      <h1>Fragancias que dejan<br><em>una huella.</em></h1>
+      <p>Perfumes originales, insumos para decants y accesorios seleccionados. Venta online y mayorista con stock actualizado.</p>
+      <div class="hero-actions">
+        <a routerLink="/productos" class="hero-primary">VER PRODUCTOS</a>
+        <a routerLink="/productos" [queryParams]="{cat:'decants'}" class="hero-secondary">VER DECANTS</a>
+      </div>
+    </div>
+    <div class="hero-side-note">
+      <span>SAHAR</span>
+      <small>PERFUMERY SUPPLY</small>
+    </div>
+  </section>
+
+  <section class="trust-strip">
+    <div><strong>100%</strong><span>Compra online</span></div>
+    <div><strong>Stock</strong><span>Actualizado</span></div>
+    <div><strong>Mayorista</strong><span>Precios por volumen</span></div>
+    <div><strong>Argentina</strong><span>Envíos a todo el país</span></div>
+  </section>
+
+  <app-productos-preview></app-productos-preview>
+  <app-categorias></app-categorias>
+  <app-nuevos-ingresos></app-nuevos-ingresos>
+  <app-home-beneficios></app-home-beneficios>
+  <app-faq></app-faq>
+</main>
+
+<a class="whatsapp-float" href="https://wa.me/" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 32 32"><path fill="currentColor" d="M16 .396C7.163.396 0 7.558 0 16.396c0 2.88.754 5.695 2.187 8.18L.06 32l7.63-2.102A15.92 15.92 0 0 0 16 32c8.837 0 16-7.163 16-16.004C32 7.558 24.837.396 16 .396zm0 29.206a13.18 13.18 0 0 1-6.71-1.84l-.48-.284-4.53 1.25 1.21-4.42-.31-.5A13.18 13.18 0 1 1 16 29.602z"/></svg>
+</a>
+
+<app-footer></app-footer>

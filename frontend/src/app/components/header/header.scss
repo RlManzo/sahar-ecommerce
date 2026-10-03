@@ -1,0 +1,8 @@
+.form-buscador{position:relative;display:flex;align-items:center;width:100%;}
+.inputWrap{position:relative;width:100%;}
+.inputBusqueda{width:100%;height:52px;padding:0 52px 0 18px;border:1px solid #303030;border-radius:5px;outline:none;background:#141414;color:#f5f0e7;font-family:'Inter',sans-serif;font-size:15px;transition:.2s;}
+.inputBusqueda::placeholder{color:#777}.inputBusqueda:focus{border-color:#a77c12;box-shadow:0 0 0 2px rgba(211,163,35,.08)}
+.iconInside{position:absolute;right:7px;top:50%;transform:translateY(-50%);width:40px;height:40px;border:0;background:transparent;display:grid;place-items:center;cursor:pointer}.iconInside svg path{fill:#d3a323!important;stroke:#d3a323!important}
+.btnBuscarDesktop{display:none}
+.buscadorContainer{position:absolute;top:calc(100% + 8px);left:0;width:100%;z-index:20000;overflow:hidden;border-radius:5px;background:#111;box-shadow:0 18px 55px #000b;border:1px solid #303030}.containerLi{max-height:360px;overflow-y:auto;padding:7px}.resultItem{width:100%;display:grid;grid-template-columns:52px 1fr;align-items:center;gap:12px;padding:10px;border:0;border-bottom:1px solid #262626;background:transparent;text-align:left;cursor:pointer;color:#eee}.resultItem:hover{background:#1a1a1a}.resultItem:last-child{border-bottom:0}.thumb,.resultImg{width:52px;height:52px}.resultImg{object-fit:contain;background:#fff;border-radius:3px}.resultInfo{display:grid;gap:4px}.resultName{font-weight:600;font-size:13px;line-height:1.3}.resultPrice{font-size:13px;font-weight:800;color:#d3a323}.resultPrice.muted{color:#888}.text-muted{color:#888!important}
+@media(max-width:900px){.inputBusqueda{height:44px;font-size:14px}.buscadorContainer{top:calc(100% + 6px)}}

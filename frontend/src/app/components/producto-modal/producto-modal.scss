@@ -1,0 +1,23 @@
+.lks-btn.primary.outline,
+.lks-btn.primary.outline:disabled,
+.lks-btn.primary:disabled.outline {
+  background-color: transparent !important;
+  background: transparent !important;
+  color: #999 !important;
+  border: 2px solid #ccc !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+  -webkit-text-fill-color: #999 !important;
+  cursor: not-allowed !important;
+}
+
+.lks-btn.primary.outline:hover,
+.lks-btn.primary.outline:disabled:hover {
+  background-color: transparent !important;
+  background: transparent !important;
+  color: #999 !important;
+  border: 2px solid #ccc !important;
+}
+/* ===== SAHAR DETAIL ===== */
+.lks-detail{background:#0d0d0d!important;color:#eee!important;display:grid!important;grid-template-columns:minmax(0,1.08fr) minmax(380px,.92fr)!important;gap:34px!important;padding:34px!important}.lks-left{background:#0d0d0d!important}.lks-main-wrap{background:#fff!important;border-radius:3px!important;min-height:520px!important;display:flex!important;align-items:center!important;justify-content:center!important}.lks-main-img{object-fit:contain!important;max-height:560px!important}.lks-thumbs{gap:8px!important;margin-top:10px!important}.lks-thumb{background:#fff!important;border:1px solid #333!important;border-radius:2px!important}.lks-thumb.active{border-color:#d3a323!important}.lks-right{padding:18px 8px!important}.lks-title{font-family:Georgia,'Times New Roman',serif!important;font-size:38px!important;font-weight:400!important;line-height:1.1!important;color:#f4efe5!important}.lks-underline{background:#d3a323!important;height:1px!important;width:54px!important;margin:18px 0 26px!important}.lks-desc,.lks-bullets{color:#aaa49a!important;line-height:1.7!important}.lks-row{border-top:1px solid #2a2a2a!important;padding:15px 0!important}.lks-label{color:#777!important;font-size:11px!important;text-transform:uppercase!important;letter-spacing:.1em!important}.lks-value{color:#eee!important;font-weight:600!important}.lks-row:has(.lks-label:first-child){ }.lks-chip{background:#211a0b!important;border:1px solid #664e12!important;color:#d3a323!important;border-radius:99px!important}.lks-actions{gap:10px!important;margin-top:24px!important}.lks-btn{border-radius:2px!important;min-height:48px!important;font-weight:800!important;letter-spacing:.07em!important}.lks-btn.primary{background:#d3a323!important;color:#090909!important;border-color:#d3a323!important}.lks-btn.secondary{background:#111!important;color:#ddd!important;border:1px solid #3a3a3a!important}
+@media(max-width:900px){.lks-detail{grid-template-columns:1fr!important;padding:16px!important}.lks-main-wrap{min-height:340px!important}.lks-title{font-size:30px!important}.lks-right{padding:12px 2px!important}}
